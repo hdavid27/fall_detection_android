@@ -1,0 +1,238 @@
+[
+    {
+        "file": "SisFall_dataset/SA01/D01_SA01_R01.txt",
+        "activity": "walking"
+    },
+    {
+        "file": "SisFall_dataset/SA01/D02_SA01_R01.txt",
+        "activity": "walking"
+    },
+    {
+        "file": "SisFall_dataset/SA01/D03_SA01_R01.txt",
+        "activity": "running"
+    },
+    {
+        "file": "SisFall_dataset/SA01/D04_SA01_R01.txt",
+        "activity": "running"
+    },
+    {
+        "file": "SisFall_dataset/SA01/D05_SA01_R01.txt",
+        "activity": "walking"
+    },
+    {
+        "file": "SisFall_dataset/SA01/D05_SA01_R02.txt",
+        "activity": "walking"
+    },
+    {
+        "file": "SisFall_dataset/SA01/D06_SA01_R01.txt",
+        "activity": "walking"
+    },
+    {
+        "file": "SisFall_dataset/SA01/D06_SA01_R02.txt",
+        "activity": "walking"
+    },
+    {
+        "file": "SisFall_dataset/SA01/D07_SA01_R01.txt",
+        "activity": "sitting"
+    },
+    {
+        "file": "SisFall_dataset/SA01/D07_SA01_R02.txt",
+        "activity": "sitting"
+    },
+    {
+        "file": "SisFall_dataset/SA01/D07_SA01_R03.txt",
+        "activity": "sitting"
+    },
+    {
+        "file": "SisFall_dataset/SA01/D08_SA01_R01.txt",
+        "activity": "sitting"
+    },
+    {
+        "file": "SisFall_dataset/SA01/D08_SA01_R02.txt",
+        "activity": "sitting"
+    },
+    {
+        "file": "SisFall_dataset/SA01/D08_SA01_R03.txt",
+        "activity": "sitting"
+    },
+    {
+        "file": "SisFall_dataset/SA01/D09_SA01_R01.txt",
+        "activity": "sitting"
+    },
+    {
+        "file": "SisFall_dataset/SA01/D09_SA01_R02.txt",
+        "activity": "sitting"
+    },
+    {
+        "file": "SisFall_dataset/SA01/D09_SA01_R03.txt",
+        "activity": "sitting"
+    },
+    {
+        "file": "SisFall_dataset/SA01/D10_SA01_R01.txt",
+        "activity": "sitting"
+    },
+    {
+        "file": "SisFall_dataset/SA01/D10_SA01_R02.txt",
+        "activity": "sitting"
+    },
+    {
+        "file": "SisFall_dataset/SA01/D10_SA01_R03.txt",
+        "activity": "sitting"
+    },
+    {
+        "file": "SisFall_dataset/SA01/D11_SA01_R01.txt",
+        "activity": "sitting"
+    },
+    {
+        "file": "SisFall_dataset/SA01/D11_SA01_R02.txt",
+        "activity": "sitting"
+    },
+    {
+        "file": "SisFall_dataset/SA01/D11_SA01_R03.txt",
+        "activity": "sitting"
+    },
+    {
+        "file": "SisFall_dataset/SA01/D12_SA01_R01.txt",
+        "activity": "sitting"
+    },
+    {
+        "file": "SisFall_dataset/SA01/D12_SA01_R02.txt",
+        "activity": "sitting"
+    },
+    {
+        "file": "SisFall_dataset/SA01/D12_SA01_R03.txt",
+        "activity": "sitting"
+    },
+    {
+        "file": "SisFall_dataset/SA01/D13_SA01_R01.txt",
+        "activity": "sitting"
+    },
+    {
+        "file": "SisFall_dataset/SA01/D13_SA01_R02.txt",
+        "activity": "sitting"
+    },
+    {
+        "file": "SisFall_dataset/SA01/D13_SA01_R03.txt",
+        "activity": "sitting"
+    },
+    {
+        "file": "SisFall_dataset/SA01/D15_SA01_R01.txt",
+        "activity": "standing"
+    },
+    {
+        "file": "SisFall_dataset/SA01/D15_SA01_R02.txt",
+        "activity": "standing"
+    },
+    {
+        "file": "SisFall_dataset/SA01/D15_SA01_R03.txt",
+        "activity": "standing"
+    },
+    {
+        "file": "SisFall_dataset/SA01/D16_SA01_R01.txt",
+        "activity": "standing"
+    },
+    {
+        "file": "SisFall_dataset/SA01/D16_SA01_R02.txt",
+        "activity": "standing"
+    },
+    {
+        "file": "SisFall_dataset/SA01/D16_SA01_R03.txt",
+        "activity": "standing"
+    },
+    {
+        "file": "SisFall_dataset/SA01/D17_SA01_R01.txt",
+        "activity": "sitting"
+    },
+    {
+        "file": "SisFall_dataset/SA01/D17_SA01_R02.txt",
+        "activity": "sitting"
+    },
+    {
+        "file": "SisFall_dataset/SA01/D17_SA01_R03.txt",
+        "activity": "sitting"
+    },
+    {
+        "file": "SisFall_dataset/SA01/D18_SA01_R01.txt",
+        "activity": "walking"
+    },
+    {
+        "file": "SisFall_dataset/SA01/D18_SA01_R02.txt",
+        "activity": "walking"
+    },
+    {
+        "file": "SisFall_dataset/SA01/D18_SA01_R03.txt",
+        "activity": "walking"
+    },
+    {
+        "file": "SisFall_dataset/SA01/D19_SA01_R01.txt",
+        "activity": "jumping"
+    },
+    {
+        "file": "SisFall_dataset/SA01/D19_SA01_R02.txt",
+        "activity": "jumping"
+    },
+    {
+        "file": "SisFall_dataset/SA01/D19_SA01_R03.txt",
+        "activity": "jumping"
+    },
+    {
+        "file": "SisFall_dataset/SA01/F01_SA01_R01.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SA01/F02_SA01_R01.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SA01/F03_SA01_R01.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SA01/F04_SA01_R01.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SA01/F05_SA01_R01.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SA01/F06_SA01_R01.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SA01/F07_SA01_R01.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SA01/F08_SA01_R01.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SA01/F09_SA01_R01.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SA01/F10_SA01_R01.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SA01/F11_SA01_R01.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SA01/F12_SA01_R01.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SA01/F13_SA01_R01.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SA01/F14_SA01_R01.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SA01/F15_SA01_R01.txt",
+        "activity": "falling"
+    }
+]

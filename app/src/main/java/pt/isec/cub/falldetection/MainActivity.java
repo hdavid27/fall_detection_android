@@ -1,17 +1,22 @@
 package pt.isec.cub.falldetection;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import pt.isec.cub.falldetection._logic.permissions.PermissionsHandler;
+import pt.isec.cub.falldetection._logic.readings.IClassificationListener;
+import pt.isec.cub.falldetection._logic.readings.ReadingsManager;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements IClassificationListener {
 
 
     // ---------------- Sensores ------------------
@@ -28,11 +33,7 @@ public class MainActivity extends AppCompatActivity {
     //Magnetometro?
 
 
-    // ---------------- Cenarios de treino ------------------
-    //Sentar
-    //Deitar
-    //Queda
-    //Queda telemóvel (Possível queda, emitir timer de alerta?)
+    private ReadingsManager readingsManager;
 
     @BindView(R.id.btn_play)
     ImageView btnPlay;
@@ -40,8 +41,11 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.btn_stop)
     ImageView btnStop;
 
-    @BindView(R.id.btn_upload)
-    ImageView btnUpload;
+    @BindView(R.id.btn_train)
+    Button btnTrain;
+
+    @BindView(R.id.txt_activity)
+    TextView txtActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +55,10 @@ public class MainActivity extends AppCompatActivity {
 
         toggleBtnPlay(true);
         toggleBtnStop(false);
-        toggleBtnUpload(false);
+
+        //TODO: download arff file
+        toggleBtnTrain(false);
+
     }
 
     @Override
@@ -61,9 +68,36 @@ public class MainActivity extends AppCompatActivity {
         PermissionsHandler.askPermissions(this);
     }
 
+    @Override
+    protected void onPause() {
+
+        stopReading();
+
+        super.onPause();
+    }
+
+    private void startReading(){
+        if(readingsManager == null) {
+            readingsManager = new ReadingsManager(getApplicationContext(), null, MainActivity.this);
+            readingsManager.execute();
+            toggleBtnPlay(false);
+            toggleBtnStop(true);
+        }
+    }
+
+    private void stopReading(){
+        if(readingsManager != null && readingsManager.isReading()){
+            readingsManager.stopReading();
+            readingsManager = null;
+            toggleBtnPlay(true);
+            toggleBtnStop(false);
+        }
+    }
+
     @OnClick(R.id.btn_play)
     public void onBtnPlayClick(View v){
-        Toast.makeText(getApplicationContext(), "On Play click!!!", Toast.LENGTH_LONG).show();
+//        Toast.makeText(getApplicationContext(), "On Play click!!!", Toast.LENGTH_LONG).show();
+        startReading();
     }
 
     public void toggleBtnPlay(boolean enable){
@@ -78,7 +112,8 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.btn_stop)
     public void onBtnStopClick(View v){
-        Toast.makeText(getApplicationContext(), "On Stop click!!!", Toast.LENGTH_LONG).show();
+//        Toast.makeText(getApplicationContext(), "On Stop click!!!", Toast.LENGTH_LONG).show();
+        stopReading();
     }
 
     public void toggleBtnStop(boolean enable){
@@ -91,18 +126,29 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @OnClick(R.id.btn_upload)
-    public void onBtnUploadClick(View v){
-        Toast.makeText(getApplicationContext(), "On Upload click!!!", Toast.LENGTH_LONG).show();
+    @OnClick(R.id.btn_train)
+    public void onBtnTrainClick(View v){
+        Toast.makeText(getApplicationContext(), "On Train click!!!", Toast.LENGTH_LONG).show();
+        Intent it = new Intent(getApplicationContext(), TrainingActivity.class);
+        startActivity(it);
     }
 
-    public void toggleBtnUpload(boolean enable){
+    public void toggleBtnTrain(boolean enable){
         if(enable){
-            btnUpload.setEnabled(true);
-            btnUpload.setImageResource(R.drawable.ic_icon_backup_black);
+            btnTrain.setEnabled(true);
         }else {
-            btnUpload.setEnabled(false);
-            btnUpload.setImageResource(R.drawable.ic_icon_backup_grey);
+            btnTrain.setEnabled(false);
         }
+    }
+
+
+    @Override
+    public void onClassify(final String classification) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                txtActivity.setText(classification);
+            }
+        });
     }
 }

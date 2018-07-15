@@ -26,20 +26,36 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:gravity="center_horizontal|center_vertical">
 
-        <ImageView
-            android:id="@+id/btn_play"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            app:srcCompat="@drawable/ic_icon_play_black" />
 
-        <ImageView
-            android:id="@+id/btn_stop"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            app:srcCompat="@drawable/ic_icon_stop_black" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/btn_play"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:srcCompat="@drawable/ic_icon_play_black" />
+
+            <ImageView
+                android:id="@+id/btn_stop"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:srcCompat="@drawable/ic_icon_stop_black" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txt_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="Activity"/>
 
     </LinearLayout>
 
@@ -47,14 +63,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical|center_horizontal"
-        android:paddingBottom="50dp">
+        android:paddingBottom="30dp">
 
-        <ImageView
-            android:id="@+id/btn_upload"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            app:srcCompat="@drawable/ic_icon_backup_black"
-            />
+        <Button
+            android:id="@+id/btn_train"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Train"/>
 
     </LinearLayout>
 

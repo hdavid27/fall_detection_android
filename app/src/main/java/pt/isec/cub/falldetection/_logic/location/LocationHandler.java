@@ -31,7 +31,7 @@ public class LocationHandler implements LocationListener {
     public static LocationHandler getInstance() {
 
         if(instance == null){
-            throw new NullPointerException();
+            instance = new LocationHandler();
         }
 
         return instance;

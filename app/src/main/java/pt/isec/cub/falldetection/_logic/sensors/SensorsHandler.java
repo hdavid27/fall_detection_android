@@ -41,8 +41,8 @@ public class SensorsHandler implements SensorEventListener {
         this.gyroscope = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
         this.sensorManager.registerListener(this, this.gyroscope, SensorManager.SENSOR_DELAY_NORMAL, SensorManager.SENSOR_DELAY_UI);
 
-        this.light = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
-        this.sensorManager.registerListener(this, this.light, SensorManager.SENSOR_DELAY_NORMAL, SensorManager.SENSOR_DELAY_UI);
+//        this.light = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+//        this.sensorManager.registerListener(this, this.light, SensorManager.SENSOR_DELAY_NORMAL, SensorManager.SENSOR_DELAY_UI);
     }
 
     public void stopListening(){

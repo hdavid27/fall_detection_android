@@ -1,0 +1,458 @@
+[
+    {
+        "file": "SisFall_dataset/SE06/D01_SE06_R01.txt",
+        "activity": "walking"
+    },
+    {
+        "file": "SisFall_dataset/SE06/D02_SE06_R01.txt",
+        "activity": "walking"
+    },
+    {
+        "file": "SisFall_dataset/SE06/D03_SE06_R01.txt",
+        "activity": "running"
+    },
+    {
+        "file": "SisFall_dataset/SE06/D04_SE06_R01.txt",
+        "activity": "running"
+    },
+    {
+        "file": "SisFall_dataset/SE06/D05_SE06_R01.txt",
+        "activity": "walking"
+    },
+    {
+        "file": "SisFall_dataset/SE06/D05_SE06_R02.txt",
+        "activity": "walking"
+    },
+    {
+        "file": "SisFall_dataset/SE06/D06_SE06_R01.txt",
+        "activity": "walking"
+    },
+    {
+        "file": "SisFall_dataset/SE06/D06_SE06_R02.txt",
+        "activity": "walking"
+    },
+    {
+        "file": "SisFall_dataset/SE06/D07_SE06_R01.txt",
+        "activity": "sitting"
+    },
+    {
+        "file": "SisFall_dataset/SE06/D07_SE06_R02.txt",
+        "activity": "sitting"
+    },
+    {
+        "file": "SisFall_dataset/SE06/D07_SE06_R03.txt",
+        "activity": "sitting"
+    },
+    {
+        "file": "SisFall_dataset/SE06/D08_SE06_R01.txt",
+        "activity": "sitting"
+    },
+    {
+        "file": "SisFall_dataset/SE06/D08_SE06_R02.txt",
+        "activity": "sitting"
+    },
+    {
+        "file": "SisFall_dataset/SE06/D08_SE06_R03.txt",
+        "activity": "sitting"
+    },
+    {
+        "file": "SisFall_dataset/SE06/D09_SE06_R01.txt",
+        "activity": "sitting"
+    },
+    {
+        "file": "SisFall_dataset/SE06/D09_SE06_R02.txt",
+        "activity": "sitting"
+    },
+    {
+        "file": "SisFall_dataset/SE06/D09_SE06_R03.txt",
+        "activity": "sitting"
+    },
+    {
+        "file": "SisFall_dataset/SE06/D10_SE06_R01.txt",
+        "activity": "sitting"
+    },
+    {
+        "file": "SisFall_dataset/SE06/D10_SE06_R02.txt",
+        "activity": "sitting"
+    },
+    {
+        "file": "SisFall_dataset/SE06/D10_SE06_R03.txt",
+        "activity": "sitting"
+    },
+    {
+        "file": "SisFall_dataset/SE06/D11_SE06_R01.txt",
+        "activity": "sitting"
+    },
+    {
+        "file": "SisFall_dataset/SE06/D11_SE06_R02.txt",
+        "activity": "sitting"
+    },
+    {
+        "file": "SisFall_dataset/SE06/D11_SE06_R03.txt",
+        "activity": "sitting"
+    },
+    {
+        "file": "SisFall_dataset/SE06/D12_SE06_R01.txt",
+        "activity": "sitting"
+    },
+    {
+        "file": "SisFall_dataset/SE06/D12_SE06_R02.txt",
+        "activity": "sitting"
+    },
+    {
+        "file": "SisFall_dataset/SE06/D12_SE06_R03.txt",
+        "activity": "sitting"
+    },
+    {
+        "file": "SisFall_dataset/SE06/D13_SE06_R01.txt",
+        "activity": "sitting"
+    },
+    {
+        "file": "SisFall_dataset/SE06/D13_SE06_R02.txt",
+        "activity": "sitting"
+    },
+    {
+        "file": "SisFall_dataset/SE06/D13_SE06_R03.txt",
+        "activity": "sitting"
+    },
+    {
+        "file": "SisFall_dataset/SE06/D15_SE06_R01.txt",
+        "activity": "standing"
+    },
+    {
+        "file": "SisFall_dataset/SE06/D15_SE06_R02.txt",
+        "activity": "standing"
+    },
+    {
+        "file": "SisFall_dataset/SE06/D15_SE06_R03.txt",
+        "activity": "standing"
+    },
+    {
+        "file": "SisFall_dataset/SE06/D16_SE06_R01.txt",
+        "activity": "standing"
+    },
+    {
+        "file": "SisFall_dataset/SE06/D16_SE06_R02.txt",
+        "activity": "standing"
+    },
+    {
+        "file": "SisFall_dataset/SE06/D16_SE06_R03.txt",
+        "activity": "standing"
+    },
+    {
+        "file": "SisFall_dataset/SE06/D17_SE06_R01.txt",
+        "activity": "sitting"
+    },
+    {
+        "file": "SisFall_dataset/SE06/D17_SE06_R02.txt",
+        "activity": "sitting"
+    },
+    {
+        "file": "SisFall_dataset/SE06/D17_SE06_R03.txt",
+        "activity": "sitting"
+    },
+    {
+        "file": "SisFall_dataset/SE06/D18_SE06_R01.txt",
+        "activity": "walking"
+    },
+    {
+        "file": "SisFall_dataset/SE06/D18_SE06_R02.txt",
+        "activity": "walking"
+    },
+    {
+        "file": "SisFall_dataset/SE06/D18_SE06_R03.txt",
+        "activity": "walking"
+    },
+    {
+        "file": "SisFall_dataset/SE06/D19_SE06_R01.txt",
+        "activity": "jumping"
+    },
+    {
+        "file": "SisFall_dataset/SE06/D19_SE06_R02.txt",
+        "activity": "jumping"
+    },
+    {
+        "file": "SisFall_dataset/SE06/D19_SE06_R03.txt",
+        "activity": "jumping"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F01_SE06_R01.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F01_SE06_R02.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F01_SE06_R03.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F01_SE06_R04.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F01_SE06_R05.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F02_SE06_R01.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F02_SE06_R02.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F02_SE06_R03.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F02_SE06_R04.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F02_SE06_R05.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F03_SE06_R01.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F03_SE06_R02.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F03_SE06_R03.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F03_SE06_R04.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F03_SE06_R05.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F04_SE06_R01.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F04_SE06_R02.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F04_SE06_R03.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F05_SE06_R04.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F05_SE06_R05.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F06_SE06_R01.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F06_SE06_R02.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F06_SE06_R03.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F06_SE06_R04.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F06_SE06_R05.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F07_SE06_R01.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F07_SE06_R02.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F07_SE06_R03.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F07_SE06_R04.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F07_SE06_R05.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F08_SE06_R01.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F08_SE06_R02.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F08_SE06_R03.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F08_SE06_R04.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F08_SE06_R05.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F09_SE06_R01.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F09_SE06_R02.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F09_SE06_R03.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F09_SE06_R04.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F09_SE06_R05.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F10_SE06_R01.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F10_SE06_R02.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F10_SE06_R03.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F10_SE06_R04.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F10_SE06_R05.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F11_SE06_R01.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F11_SE06_R02.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F11_SE06_R03.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F11_SE06_R04.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F11_SE06_R05.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F12_SE06_R01.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F12_SE06_R02.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F12_SE06_R03.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F12_SE06_R04.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F12_SE06_R05.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F13_SE06_R01.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F13_SE06_R02.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F13_SE06_R03.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F13_SE06_R04.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F13_SE06_R05.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F14_SE06_R01.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F14_SE06_R02.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F14_SE06_R03.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F14_SE06_R04.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F14_SE06_R05.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F15_SE06_R01.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F15_SE06_R02.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F15_SE06_R03.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F15_SE06_R04.txt",
+        "activity": "falling"
+    },
+    {
+        "file": "SisFall_dataset/SE06/F15_SE06_R05.txt",
+        "activity": "falling"
+    }
+]
