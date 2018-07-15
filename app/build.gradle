@@ -31,4 +31,10 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
     implementation files('libs/weka_3_7_13_mobile.jar')
+
+    //Firebase
+    implementation 'com.google.firebase:firebase-core:16.0.1'
+    implementation 'com.google.firebase:firebase-storage:16.0.1'
 }
+
+apply plugin: 'com.google.gms.google-services'

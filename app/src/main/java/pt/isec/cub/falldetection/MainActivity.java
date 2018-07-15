@@ -1,6 +1,7 @@
 package pt.isec.cub.falldetection;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,9 +10,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.storage.FileDownloadTask;
+
+import java.io.IOException;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import pt.isec.cub.falldetection._logic.firebase.FirebaseStorageHandler;
 import pt.isec.cub.falldetection._logic.permissions.PermissionsHandler;
 import pt.isec.cub.falldetection._logic.readings.IClassificationListener;
 import pt.isec.cub.falldetection._logic.readings.ReadingsManager;
@@ -48,6 +57,9 @@ public class MainActivity extends AppCompatActivity implements IClassificationLi
     @BindView(R.id.txt_activity)
     TextView txtActivity;
 
+    @BindView(R.id.btn_download)
+    Button btnDownload;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements IClassificationLi
         toggleBtnPlay(true);
         toggleBtnStop(false);
 
+        FirebaseApp.initializeApp(getApplicationContext());
         //TODO: download arff file
         //toggleBtnTrain(false);
 
@@ -143,6 +156,36 @@ public class MainActivity extends AppCompatActivity implements IClassificationLi
         }
     }
 
+    @OnClick(R.id.btn_download)
+    public void onBtnDownloadClick(View v){
+        try {
+            FirebaseStorageHandler.getInstance().downloadFileTask(getApplicationContext())
+                    .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                            MyClassifier.getInstance().loadTrainingData(getApplicationContext());
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(getApplicationContext(), "Download successful!!", Toast.LENGTH_LONG).show();
+                                }
+                            });
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(getApplicationContext(), "Download failed!!", Toast.LENGTH_LONG).show();
+                                }
+                            });
+                        }
+                    });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void onClassify(final String classification) {

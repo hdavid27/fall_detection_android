@@ -2,6 +2,7 @@ package pt.isec.cub.falldetection;
 
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -9,12 +10,20 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.FileNotFoundException;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import pt.isec.cub.falldetection._logic.firebase.FirebaseStorageHandler;
 import pt.isec.cub.falldetection._logic.permissions.PermissionsHandler;
 import pt.isec.cub.falldetection._logic.readings.IClassificationListener;
 import pt.isec.cub.falldetection._logic.readings.ReadingsManager;
+import pt.isec.cub.falldetection._logic.utils.FileCreator;
 
 public class TrainingActivity extends AppCompatActivity implements IClassificationListener{
 
@@ -51,7 +60,7 @@ public class TrainingActivity extends AppCompatActivity implements IClassificati
 
 
         // TODO: check files to upload
-        toggleBtnUpload(false);
+        //toggleBtnUpload(false);
     }
 
     @Override
@@ -150,7 +159,30 @@ public class TrainingActivity extends AppCompatActivity implements IClassificati
 
     @OnClick(R.id.btn_upload)
     public void onBtnUploadClick(View v){
-        Toast.makeText(getApplicationContext(), "On Upload click!!!", Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), "On Upload click!!!", Toast.LENGTH_LONG).show();
+
+        try {
+            FirebaseStorageHandler.getInstance().uploadFileTask(FileCreator.getTrainingArffFilename(getApplicationContext()))
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(getApplicationContext(), "Upload successful!!", Toast.LENGTH_LONG).show();
+                                }
+                            });
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getApplicationContext(), "Fail to upload file!!", Toast.LENGTH_LONG).show();
+                        }
+                    });
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void toggleBtnUpload(boolean enable){
