@@ -1,5 +1,6 @@
 package pt.isec.cub.falldetection._logic.readings;
 
+import android.app.Activity;
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -18,6 +19,7 @@ import pt.isec.cub.falldetection._logic.location.LocationHandler;
 import pt.isec.cub.falldetection._logic.sensors.ISensorsListener;
 import pt.isec.cub.falldetection._logic.sensors.SensorsHandler;
 import pt.isec.cub.falldetection._logic.utils.FileCreator;
+import pt.isec.cub.falldetection._logic.weka.MyClassifier;
 import pt.isec.cub.falldetection._logic.weka.WekaWrapper;
 import weka.core.Instance;
 import weka.core.Instances;
@@ -25,6 +27,11 @@ import weka.core.converters.ConverterUtils.DataSource;
 
 public class ReadingsManager extends AsyncTask<Void, Double, String>
                             implements ISensorsListener, ILocationListener {
+
+    public enum EnumReadingMode {
+        TRAINING,
+        CLASSIFYING
+    }
 
     private static String TAG = "Readings Manager";
     private static long TIME_DIFF = 3000;
@@ -34,18 +41,6 @@ public class ReadingsManager extends AsyncTask<Void, Double, String>
 
     private static int gyroscope_resolution = 16;
     private static int gyroscope_range = 2000;
-
-    private static ArrayList<String> activities = new ArrayList<String>() {
-        {
-            add("walking");
-            add("running");
-            add("sitting");
-            add("standing");
-            add("jumping");
-            add("falling");
-            add("others");
-        }
-    };
 
     private boolean isReading;
     private Context context;
@@ -61,7 +56,9 @@ public class ReadingsManager extends AsyncTask<Void, Double, String>
 
     private String activity;
 
-    public ReadingsManager(Context context, String activity, IClassificationListener iClassificationListener) {
+    private EnumReadingMode enumReadingMode;
+
+    public ReadingsManager(Context context, String activity, IClassificationListener iClassificationListener, EnumReadingMode enumReadingMode) {
 
         this.context = context;
         this.isReading = false;
@@ -84,6 +81,7 @@ public class ReadingsManager extends AsyncTask<Void, Double, String>
 
         this.iClassificationListener = iClassificationListener;
 
+        this.enumReadingMode = enumReadingMode;
     }
 
     public boolean isReading(){
@@ -91,8 +89,11 @@ public class ReadingsManager extends AsyncTask<Void, Double, String>
     }
 
     public void stopReading(){
+        LocationHandler.getInstance().stopListening(context);
+        SensorsHandler.getInstance().stopListening();
         isReading = false;
-        FileCreator.deleteArffFile(context);
+        context = null;
+        iClassificationListener.onClassify("Stopped reading!!");
     }
 
     private Double getMeanValue(ArrayList<Double> temArray){
@@ -106,42 +107,7 @@ public class ReadingsManager extends AsyncTask<Void, Double, String>
         return sum / temArray.size();
     }
 
-    private void classifyData(){
 
-
-
-        try {
-
-            String filename = FileCreator.createArffTempFile(context);
-
-            if(filename == null){
-                return;
-            }
-
-            Log.d(TAG, "Classifying Data!!!");
-
-            DataSource source = new DataSource(filename);
-
-            Instances data = source.getDataSet();
-
-            if(data.classIndex() == -1){
-                data.setClassIndex(data.numAttributes() - 1);
-            }
-
-            WekaWrapper classifier = new WekaWrapper();
-
-            for(int i= 0; i<data.numInstances(); i++){
-                Double result = classifier.classifyInstance(data.instance(i));
-
-                iClassificationListener.onClassify(activities.get(result.intValue()));
-            }
-
-            FileCreator.deleteArffFileTemp(context);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     @Override
     protected String doInBackground(Void... voids) {
@@ -157,8 +123,13 @@ public class ReadingsManager extends AsyncTask<Void, Double, String>
         this.accelerometer_values = new ArrayList<>();
         this.gyroscope_values = new ArrayList<>();
 
-        FileCreator.deleteArffFileTemp(context);
-        FileCreator.deleteArffFile(context);
+        try{
+            FileCreator.deleteArffFileTemp(context);
+            FileCreator.deleteArffFile(context);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
 
         LocationHandler.getInstance().startListening(context, ReadingsManager.this);
         SensorsHandler.getInstance().startListening(context, ReadingsManager.this);
@@ -176,9 +147,6 @@ public class ReadingsManager extends AsyncTask<Void, Double, String>
 //            }
 
         }
-
-        LocationHandler.getInstance().stopListening(context);
-        SensorsHandler.getInstance().stopListening();
 
         Log.d(TAG, "Stopped Reading!!!");
 
@@ -204,9 +172,9 @@ public class ReadingsManager extends AsyncTask<Void, Double, String>
             double y = (double) event.values[1];
             double z = (double) event.values[2];
 
-            x = x * ( (2*accelerometer_range) / (Math.pow(accelerometer_resolution,2)) );
-            y = y * ( (2*accelerometer_range) / (Math.pow(accelerometer_resolution,2)) );
-            z = z * ( (2*accelerometer_range) / (Math.pow(accelerometer_resolution,2)) );
+//            x = x * ( (2*accelerometer_range) / (Math.pow(accelerometer_resolution,2)) );
+//            y = y * ( (2*accelerometer_range) / (Math.pow(accelerometer_resolution,2)) );
+//            z = z * ( (2*accelerometer_range) / (Math.pow(accelerometer_resolution,2)) );
 
             this.accelerometer_values.add(Math.sqrt(Math.pow(x,2) + Math.pow(y,2) + Math.pow(z,2)));
 
@@ -233,9 +201,9 @@ public class ReadingsManager extends AsyncTask<Void, Double, String>
             double y = (double) event.values[1];
             double z = (double) event.values[2];
 
-            x = x * ( (2*accelerometer_range) / (Math.pow(accelerometer_resolution,2)) );
-            y = y * ( (2*accelerometer_range) / (Math.pow(accelerometer_resolution,2)) );
-            z = z * ( (2*accelerometer_range) / (Math.pow(accelerometer_resolution,2)) );
+//            x = x * ( (2*accelerometer_range) / (Math.pow(accelerometer_resolution,2)) );
+//            y = y * ( (2*accelerometer_range) / (Math.pow(accelerometer_resolution,2)) );
+//            z = z * ( (2*accelerometer_range) / (Math.pow(accelerometer_resolution,2)) );
 
             this.gyroscope_values.add(Math.sqrt(Math.pow(x,2) + Math.pow(y,2) + Math.pow(z,2)));
 
@@ -257,18 +225,42 @@ public class ReadingsManager extends AsyncTask<Void, Double, String>
 
         if(this.accelerometer_values.size() >= 64 && this.gyroscope_values.size() >= 64){
 
-            Log.d(TAG, "Creating Arff File!!!!");
+            if(this.enumReadingMode == EnumReadingMode.CLASSIFYING) {
 
-            FileCreator.addDataToArffFile(
-                    context,
-                    this.activity,
-                    new ArrayList<Double>(this.accelerometer_values),
-                    new ArrayList<Double>(this.gyroscope_values)
-            );
-            this.accelerometer_values = new ArrayList<>();
-            this.gyroscope_values = new ArrayList<>();
+                FileCreator.addDataToClassificationFile(
+                        context,
+                        this.activity,
+                        new ArrayList<Double>(this.accelerometer_values),
+                        new ArrayList<Double>(this.gyroscope_values)
+                );
+                this.accelerometer_values = new ArrayList<>();
+                this.gyroscope_values = new ArrayList<>();
 
-            classifyData();
+                Log.d(TAG, "Creating Classification File!!!!");
+                iClassificationListener.onClassify("Creating Classification File!!!!");
+
+                MyClassifier.getInstance().myClassifier(context, iClassificationListener);
+            }
+
+            if(this.enumReadingMode == EnumReadingMode.TRAINING) {
+
+
+                FileCreator.addDataToTrainingFile(
+                        context,
+                        this.activity,
+                        new ArrayList<Double>(this.accelerometer_values),
+                        new ArrayList<Double>(this.gyroscope_values)
+                );
+                this.accelerometer_values = new ArrayList<>();
+                this.gyroscope_values = new ArrayList<>();
+
+                MyClassifier.getInstance().loadTrainingData(context);
+
+                Log.d(TAG, "Training File!!!!");
+                iClassificationListener.onClassify("Training File!!!!");
+
+            }
+
         }
 
     }

@@ -15,6 +15,7 @@ import butterknife.OnClick;
 import pt.isec.cub.falldetection._logic.permissions.PermissionsHandler;
 import pt.isec.cub.falldetection._logic.readings.IClassificationListener;
 import pt.isec.cub.falldetection._logic.readings.ReadingsManager;
+import pt.isec.cub.falldetection._logic.weka.MyClassifier;
 
 public class MainActivity extends AppCompatActivity implements IClassificationListener {
 
@@ -57,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements IClassificationLi
         toggleBtnStop(false);
 
         //TODO: download arff file
-        toggleBtnTrain(false);
+        //toggleBtnTrain(false);
 
     }
 
@@ -66,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements IClassificationLi
         super.onResume();
 
         PermissionsHandler.askPermissions(this);
+        MyClassifier.getInstance().loadTrainingData(getApplicationContext());
     }
 
     @Override
@@ -77,8 +79,8 @@ public class MainActivity extends AppCompatActivity implements IClassificationLi
     }
 
     private void startReading(){
-        if(readingsManager == null) {
-            readingsManager = new ReadingsManager(getApplicationContext(), null, MainActivity.this);
+        if(readingsManager == null || !readingsManager.isReading()) {
+            readingsManager = new ReadingsManager(getApplicationContext(), null, MainActivity.this, ReadingsManager.EnumReadingMode.CLASSIFYING);
             readingsManager.execute();
             toggleBtnPlay(false);
             toggleBtnStop(true);
@@ -102,10 +104,10 @@ public class MainActivity extends AppCompatActivity implements IClassificationLi
 
     public void toggleBtnPlay(boolean enable){
         if(enable){
-            btnPlay.setEnabled(true);
+//            btnPlay.setEnabled(true);
             btnPlay.setImageResource(R.drawable.ic_icon_play_black);
         }else {
-            btnPlay.setEnabled(false);
+//            btnPlay.setEnabled(false);
             btnPlay.setImageResource(R.drawable.ic_icon_play_grey);
         }
     }
@@ -118,17 +120,17 @@ public class MainActivity extends AppCompatActivity implements IClassificationLi
 
     public void toggleBtnStop(boolean enable){
         if(enable){
-            btnStop.setEnabled(true);
+//            btnStop.setEnabled(true);
             btnStop.setImageResource(R.drawable.ic_icon_stop_black);
         }else {
-            btnStop.setEnabled(false);
+//            btnStop.setEnabled(false);
             btnStop.setImageResource(R.drawable.ic_icon_stop_grey);
         }
     }
 
     @OnClick(R.id.btn_train)
     public void onBtnTrainClick(View v){
-        Toast.makeText(getApplicationContext(), "On Train click!!!", Toast.LENGTH_LONG).show();
+//        Toast.makeText(getApplicationContext(), "On Train click!!!", Toast.LENGTH_LONG).show();
         Intent it = new Intent(getApplicationContext(), TrainingActivity.class);
         startActivity(it);
     }

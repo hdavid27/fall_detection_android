@@ -6,15 +6,17 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import pt.isec.cub.falldetection._logic.permissions.PermissionsHandler;
+import pt.isec.cub.falldetection._logic.readings.IClassificationListener;
 import pt.isec.cub.falldetection._logic.readings.ReadingsManager;
 
-public class TrainingActivity extends AppCompatActivity {
+public class TrainingActivity extends AppCompatActivity implements IClassificationListener{
 
     // ---------------- Cenarios de treino ------------------
     //Andar
@@ -38,6 +40,9 @@ public class TrainingActivity extends AppCompatActivity {
     @BindView(R.id.btn_upload)
     ImageView btnUpload;
 
+    @BindView(R.id.radioGroupActivities)
+    RadioGroup radioGroup;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,11 +57,7 @@ public class TrainingActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
 
-        if(readingsManager != null && readingsManager.isReading()){
-            readingsManager.stopReading();
-            toggleBtnPlay(true);
-            toggleBtnStop(false);
-        }
+        stopReading();
 
         super.onPause();
     }
@@ -68,39 +69,80 @@ public class TrainingActivity extends AppCompatActivity {
         PermissionsHandler.askPermissions(this);
     }
 
+    private void startReading(String activity){
+        if(readingsManager == null) {
+            readingsManager = new ReadingsManager(getApplicationContext(), activity, TrainingActivity.this, ReadingsManager.EnumReadingMode.TRAINING);
+            readingsManager.execute();
+            toggleBtnPlay(false);
+            toggleBtnStop(true);
+        }
+    }
+
+    private void stopReading(){
+        if(readingsManager != null && readingsManager.isReading()){
+            readingsManager.stopReading();
+            readingsManager = null;
+            toggleBtnPlay(true);
+            toggleBtnStop(false);
+        }
+    }
+
     @OnClick(R.id.btn_play)
     public void onBtnPlayClick(View v){
-        Toast.makeText(getApplicationContext(), "On Play click!!!", Toast.LENGTH_LONG).show();
-//        readingsManager = new ReadingsManager(getApplicationContext());
-//        readingsManager.execute();
-//        toggleBtnPlay(false);
-//        toggleBtnStop(true);
+
+        switch (radioGroup.getCheckedRadioButtonId()){
+            case R.id.radioButtonWalking:
+                startReading("walking");
+                break;
+
+            case R.id.radioButtonRunning:
+                startReading("running");
+                break;
+
+            case R.id.radioButtonSitting:
+                startReading("sitting");
+                break;
+
+            case R.id.radioButtonStanding:
+                startReading("standing");
+                break;
+
+            case R.id.radioButtonJumping:
+                startReading("jumping");
+                break;
+
+            case R.id.radioButtonFalling:
+                startReading("falling");
+                break;
+
+            default:
+                Toast.makeText(getApplicationContext(), "Select an activity!!!", Toast.LENGTH_LONG).show();
+                break;
+        }
+
     }
 
     public void toggleBtnPlay(boolean enable){
         if(enable){
-            btnPlay.setEnabled(true);
+            //btnPlay.setEnabled(true);
             btnPlay.setImageResource(R.drawable.ic_icon_play_black);
         }else {
-            btnPlay.setEnabled(false);
+            //btnPlay.setEnabled(false);
             btnPlay.setImageResource(R.drawable.ic_icon_play_grey);
         }
     }
 
     @OnClick(R.id.btn_stop)
     public void onBtnStopClick(View v){
-        Toast.makeText(getApplicationContext(), "On Stop click!!!", Toast.LENGTH_LONG).show();
-        readingsManager.stopReading();
-        toggleBtnPlay(true);
-        toggleBtnStop(false);
+        stopReading();
     }
 
     public void toggleBtnStop(boolean enable){
         if(enable){
-            btnStop.setEnabled(true);
+            //btnStop.setEnabled(true);
             btnStop.setImageResource(R.drawable.ic_icon_stop_black);
         }else {
-            btnStop.setEnabled(false);
+            //btnStop.setEnabled(false);
             btnStop.setImageResource(R.drawable.ic_icon_stop_grey);
         }
     }
@@ -113,11 +155,16 @@ public class TrainingActivity extends AppCompatActivity {
 
     public void toggleBtnUpload(boolean enable){
         if(enable){
-            btnUpload.setEnabled(true);
+            //btnUpload.setEnabled(true);
             btnUpload.setImageResource(R.drawable.ic_icon_backup_black);
         }else {
-            btnUpload.setEnabled(false);
+            //btnUpload.setEnabled(false);
             btnUpload.setImageResource(R.drawable.ic_icon_backup_grey);
         }
+    }
+
+    @Override
+    public void onClassify(String classification) {
+        Toast.makeText(getApplicationContext(), classification, Toast.LENGTH_LONG).show();
     }
 }
