@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "807374500838",
+    "firebase_url": "https://fall-detection-app.firebaseio.com",
+    "project_id": "fall-detection-app",
+    "storage_bucket": "fall-detection-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:807374500838:android:1391986bd5624b63",
+        "android_client_info": {
+          "package_name": "pt.isec.cub.falldetection"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "807374500838-5q0d1do2re5mook6pg3tishaugf6j8jq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBu8CFNwO934hfZG469c4cTVlKWWdydBgs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
