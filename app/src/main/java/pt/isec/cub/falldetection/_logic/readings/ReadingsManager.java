@@ -186,7 +186,7 @@ public class ReadingsManager extends AsyncTask<Void, Double, String>
             long actualTime = Calendar.getInstance().getTimeInMillis();
             long diffTime = actualTime - lastAccelerometerReading;
 
-            if(diffTime >= 30) {
+            if(diffTime >= 40) {
 
                 lastAccelerometerReading = Calendar.getInstance().getTimeInMillis();
 
@@ -224,7 +224,7 @@ public class ReadingsManager extends AsyncTask<Void, Double, String>
             long actualTime = Calendar.getInstance().getTimeInMillis();
             long diffTime = actualTime - lastGyroscopeReading;
 
-            if(diffTime >= 30) {
+            if(diffTime >= 40) {
 
                 lastGyroscopeReading = Calendar.getInstance().getTimeInMillis();
 
