@@ -36,10 +36,10 @@ public class SensorsHandler implements SensorEventListener {
         this.sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
 
         this.accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        this.sensorManager.registerListener(this, this.accelerometer, SensorManager.SENSOR_DELAY_NORMAL, SensorManager.SENSOR_DELAY_UI);
+        this.sensorManager.registerListener(this, this.accelerometer, SensorManager.SENSOR_DELAY_NORMAL, SensorManager.SENSOR_STATUS_ACCURACY_HIGH);
 
         this.gyroscope = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
-        this.sensorManager.registerListener(this, this.gyroscope, SensorManager.SENSOR_DELAY_NORMAL, SensorManager.SENSOR_DELAY_UI);
+        this.sensorManager.registerListener(this, this.gyroscope, SensorManager.SENSOR_DELAY_NORMAL, SensorManager.SENSOR_STATUS_ACCURACY_HIGH);
 
 //        this.light = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
 //        this.sensorManager.registerListener(this, this.light, SensorManager.SENSOR_DELAY_NORMAL, SensorManager.SENSOR_DELAY_UI);

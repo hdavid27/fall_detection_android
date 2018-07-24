@@ -52,7 +52,7 @@ public class ReadingsManager extends AsyncTask<Void, Double, String>
 
     private IClassificationListener iClassificationListener;
 
-    private long lastClassifiedTime;
+    private long lastGyroscopeReading, lastAccelerometerReading;
 
     private String activity;
 
@@ -82,6 +82,8 @@ public class ReadingsManager extends AsyncTask<Void, Double, String>
         this.iClassificationListener = iClassificationListener;
 
         this.enumReadingMode = enumReadingMode;
+
+
     }
 
     public boolean isReading(){
@@ -91,9 +93,10 @@ public class ReadingsManager extends AsyncTask<Void, Double, String>
     public void stopReading(){
         LocationHandler.getInstance().stopListening(context);
         SensorsHandler.getInstance().stopListening();
-        isReading = false;
-        context = null;
+        Log.d(TAG, "Stopped Reading!!!");
         iClassificationListener.onClassify("Stopped reading!!");
+        isReading = false;
+
     }
 
     private Double getMeanValue(ArrayList<Double> temArray){
@@ -112,43 +115,51 @@ public class ReadingsManager extends AsyncTask<Void, Double, String>
     @Override
     protected String doInBackground(Void... voids) {
 
-        if(isReading){
-            return "Already Running";
-        }
-
-        isReading = true;
-
-        Looper.prepare();
-
-        this.accelerometer_values = new ArrayList<>();
-        this.gyroscope_values = new ArrayList<>();
-
         try{
+            if(isReading){
+                iClassificationListener.onClassify("Already Running");
+                return "Already Running";
+            }
+
+            isReading = true;
+
+            if(Looper.myLooper() == null){
+                Looper.prepare();
+            }
+
+            this.accelerometer_values = new ArrayList<>();
+            this.gyroscope_values = new ArrayList<>();
+
+
             FileCreator.deleteArffFileTemp(context);
             FileCreator.deleteArffFile(context);
+
+
+            LocationHandler.getInstance().startListening(context, ReadingsManager.this);
+            SensorsHandler.getInstance().startListening(context, ReadingsManager.this);
+
+            Log.d(TAG, "Started Reading!!!");
+            iClassificationListener.onClassify("Started reading!!");
+
+            this.lastGyroscopeReading = Calendar.getInstance().getTimeInMillis();
+            this.lastAccelerometerReading = Calendar.getInstance().getTimeInMillis();
+
+            while (isReading){
+
+    //            if(Calendar.getInstance().getTimeInMillis() - lastClassifiedTime >= TIME_DIFF ){
+    //                lastClassifiedTime = Calendar.getInstance().getTimeInMillis();
+    //
+    //                classifyData();
+    //            }
+
+            }
+
+            context = null;
+
         }catch (Exception e){
             e.printStackTrace();
+            iClassificationListener.onClassify("Error Reading");
         }
-
-
-        LocationHandler.getInstance().startListening(context, ReadingsManager.this);
-        SensorsHandler.getInstance().startListening(context, ReadingsManager.this);
-
-        Log.d(TAG, "Started Reading!!!");
-
-        lastClassifiedTime = Calendar.getInstance().getTimeInMillis();
-
-        while (isReading){
-
-//            if(Calendar.getInstance().getTimeInMillis() - lastClassifiedTime >= TIME_DIFF ){
-//                lastClassifiedTime = Calendar.getInstance().getTimeInMillis();
-//
-//                classifyData();
-//            }
-
-        }
-
-        Log.d(TAG, "Stopped Reading!!!");
 
         return null;
     }
@@ -165,67 +176,90 @@ public class ReadingsManager extends AsyncTask<Void, Double, String>
     @Override
     public void onSensorChanged(SensorEvent event) {
 
-        if(event.sensor.getType() == Sensor.TYPE_ACCELEROMETER){
-            final String str;
-
-            double x = (double) event.values[0];
-            double y = (double) event.values[1];
-            double z = (double) event.values[2];
-
-//            x = x * ( (2*accelerometer_range) / (Math.pow(accelerometer_resolution,2)) );
-//            y = y * ( (2*accelerometer_range) / (Math.pow(accelerometer_resolution,2)) );
-//            z = z * ( (2*accelerometer_range) / (Math.pow(accelerometer_resolution,2)) );
-
-            this.accelerometer_values.add(Math.sqrt(Math.pow(x,2) + Math.pow(y,2) + Math.pow(z,2)));
-
-//            if(this.accelerometer_temp.size() >= 10){
-//                this.accelerometer_values.add(getMeanValue(this.accelerometer_temp));
-//                this.accelerometer_temp = new ArrayList<>();
-//
-//                Log.d(TAG, "Acelerometro novo valor");
-//            }
-
-//            if(event.values.length >= 3){
-//                str = "X:" + event.values[0] + "\n" + "Y:" + event.values[1] + "\n" + "Z:" + event.values[2];
-//            }else {
-//                str = "";
-//            }
-//            Log.d(TAG, "Acelerometro: " + str);
-
-        }
-
-        if(event.sensor.getType() == Sensor.TYPE_GYROSCOPE){
-            final String str;
-
-            double x = (double) event.values[0];
-            double y = (double) event.values[1];
-            double z = (double) event.values[2];
-
-//            x = x * ( (2*accelerometer_range) / (Math.pow(accelerometer_resolution,2)) );
-//            y = y * ( (2*accelerometer_range) / (Math.pow(accelerometer_resolution,2)) );
-//            z = z * ( (2*accelerometer_range) / (Math.pow(accelerometer_resolution,2)) );
-
-            this.gyroscope_values.add(Math.sqrt(Math.pow(x,2) + Math.pow(y,2) + Math.pow(z,2)));
-
-//            if(this.gyroscope_temp.size() >= 10){
-//                this.gyroscope_values.add(getMeanValue(this.gyroscope_temp));
-//                this.gyroscope_temp = new ArrayList<>();
-//
-//                Log.d(TAG, "Giroscopio novo valor");
-//            }
-
-//            if(event.values.length >= 3){
-//                str = "X:" + event.values[0] + "\n" + "Y:" + event.values[1] + "\n" + "Z:" + event.values[2];
-//            }else {
-//                str = "";
-//            }
-//            Log.d(TAG, "Giroscopio: " + str);
+        if(!isReading){
+            return;
         }
 
 
-        if(this.accelerometer_values.size() >= 64 && this.gyroscope_values.size() >= 64){
+        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
 
-            if(this.enumReadingMode == EnumReadingMode.CLASSIFYING) {
+            long actualTime = Calendar.getInstance().getTimeInMillis();
+            long diffTime = actualTime - lastAccelerometerReading;
+
+            if(diffTime >= 30) {
+
+                lastAccelerometerReading = Calendar.getInstance().getTimeInMillis();
+
+                final String str;
+
+                double x = (double) event.values[0];
+                double y = (double) event.values[1];
+                double z = (double) event.values[2];
+
+                //            x = x * ( (2*accelerometer_range) / (Math.pow(accelerometer_resolution,2)) );
+                //            y = y * ( (2*accelerometer_range) / (Math.pow(accelerometer_resolution,2)) );
+                //            z = z * ( (2*accelerometer_range) / (Math.pow(accelerometer_resolution,2)) );
+
+                this.accelerometer_values.add(Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2)));
+
+                //            if(this.accelerometer_temp.size() >= 10){
+                //                this.accelerometer_values.add(getMeanValue(this.accelerometer_temp));
+                //                this.accelerometer_temp = new ArrayList<>();
+                //
+                //                Log.d(TAG, "Acelerometro novo valor");
+                //            }
+
+                //            if(event.values.length >= 3){
+                //                str = "X:" + event.values[0] + "\n" + "Y:" + event.values[1] + "\n" + "Z:" + event.values[2];
+                //            }else {
+                //                str = "";
+                //            }
+                //            Log.d(TAG, "Acelerometro: " + str);
+            }
+
+        }
+
+        if (event.sensor.getType() == Sensor.TYPE_GYROSCOPE) {
+
+            long actualTime = Calendar.getInstance().getTimeInMillis();
+            long diffTime = actualTime - lastGyroscopeReading;
+
+            if(diffTime >= 30) {
+
+                lastGyroscopeReading = Calendar.getInstance().getTimeInMillis();
+
+                final String str;
+
+                double x = (double) event.values[0];
+                double y = (double) event.values[1];
+                double z = (double) event.values[2];
+
+                //            x = x * ( (2*accelerometer_range) / (Math.pow(accelerometer_resolution,2)) );
+                //            y = y * ( (2*accelerometer_range) / (Math.pow(accelerometer_resolution,2)) );
+                //            z = z * ( (2*accelerometer_range) / (Math.pow(accelerometer_resolution,2)) );
+
+                this.gyroscope_values.add(Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2)));
+
+                //            if(this.gyroscope_temp.size() >= 10){
+                //                this.gyroscope_values.add(getMeanValue(this.gyroscope_temp));
+                //                this.gyroscope_temp = new ArrayList<>();
+                //
+                //                Log.d(TAG, "Giroscopio novo valor");
+                //            }
+
+                //            if(event.values.length >= 3){
+                //                str = "X:" + event.values[0] + "\n" + "Y:" + event.values[1] + "\n" + "Z:" + event.values[2];
+                //            }else {
+                //                str = "";
+                //            }
+                //            Log.d(TAG, "Giroscopio: " + str);
+            }
+        }
+
+
+        if (this.accelerometer_values.size() >= 64 && this.gyroscope_values.size() >= 64) {
+
+            if (this.enumReadingMode == EnumReadingMode.CLASSIFYING) {
 
                 FileCreator.addDataToClassificationFile(
                         context,
@@ -242,7 +276,7 @@ public class ReadingsManager extends AsyncTask<Void, Double, String>
                 MyClassifier.getInstance().myClassifier(context, iClassificationListener);
             }
 
-            if(this.enumReadingMode == EnumReadingMode.TRAINING) {
+            if (this.enumReadingMode == EnumReadingMode.TRAINING) {
 
 
                 FileCreator.addDataToTrainingFile(
@@ -262,6 +296,7 @@ public class ReadingsManager extends AsyncTask<Void, Double, String>
             }
 
         }
+
 
     }
 }

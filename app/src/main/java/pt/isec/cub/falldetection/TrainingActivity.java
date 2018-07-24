@@ -1,10 +1,12 @@
 package pt.isec.cub.falldetection;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
@@ -79,20 +81,33 @@ public class TrainingActivity extends AppCompatActivity implements IClassificati
     }
 
     private void startReading(String activity){
-        if(readingsManager == null) {
+        try {
+            if (readingsManager != null) {
+                stopReading();
+            }
+
             readingsManager = new ReadingsManager(getApplicationContext(), activity, TrainingActivity.this, ReadingsManager.EnumReadingMode.TRAINING);
-            readingsManager.execute();
+            readingsManager.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             toggleBtnPlay(false);
             toggleBtnStop(true);
+
+        }catch (Exception e){
+            e.printStackTrace();
+            Log.e("trainingActivity", e.toString());
         }
     }
 
     private void stopReading(){
-        if(readingsManager != null && readingsManager.isReading()){
+        try {
+
             readingsManager.stopReading();
             readingsManager = null;
             toggleBtnPlay(true);
             toggleBtnStop(false);
+
+        }catch (Exception e){
+            e.printStackTrace();
+            Log.e("trainingActivity", e.toString());
         }
     }
 
@@ -196,7 +211,13 @@ public class TrainingActivity extends AppCompatActivity implements IClassificati
     }
 
     @Override
-    public void onClassify(String classification) {
-        Toast.makeText(getApplicationContext(), classification, Toast.LENGTH_LONG).show();
+    public void onClassify(final String classification) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getApplicationContext(), classification, Toast.LENGTH_LONG).show();
+            }
+        });
+
     }
 }
